@@ -10,12 +10,13 @@
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
     crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./assets/style.css">
     <title>Document</title>
 </head>
 <body>
     <header>
-        <h1>Weather Dashboard</h1>
+        <h1 >Weather Dashboard</h1>
         <h2 class="WeeklyDate"></h2>
     </header>
     <section>   
@@ -28,13 +29,17 @@
             </div>
           </nav>
     </section>
-    <section class ='forecastCont'>
+    <section>
+      <div class="forecastCont"></div>
+      <div class="forecast"></div> 
+      <div class="history" id="hidden">Search history</div>
       <!-- work in progress -->
       <!-- <div class="weather"></div> -->
-      <div class="forecast"></div> 
     </section>
-</body>
 
+</body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script src="./assets/script.js"></script>
 </html>
 
