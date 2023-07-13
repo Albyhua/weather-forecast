@@ -1,11 +1,9 @@
 var button = document.querySelector('button')
 var userInput = document.querySelector('input')
 var form = document.querySelector('form')
-var forecast = document.querySelector('.forecast')
-// const weather = document.querySelector('weather')
-// const forecast = document.querySelector('forecast')
-// const location = document.querySelector('location')
+var forecast = document.querySelector('.forecast') // remember the period in classes
 var forecastCont = document.querySelector('.forecastCont')
+var history = document.querySelector('.history')
 
 
 var apiKey = "9ac482b1f394f1059d1b4a11c39a8898";
@@ -19,7 +17,10 @@ form.addEventListener('submit', function (event) {
     searchHistory.push(city);
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
+     userInput.value = ''; // clears user input so they can 
+     forecast.innerHTML = ''; // refreshes every time a new user input is placed
     checkweather(city);
+    saveHistory();
     // renderforecast(dailyforecast);
 })
 
@@ -87,9 +88,13 @@ function checkweather(city) {
                 document.body.appendChild(imgForecast);
                 imgForecast.width = 50;
                 imgForecast.height = 50;
-    
-                // forecast.innerHTML = '';
-    
+
+
+                // getting date
+                var date = document.createElement("h3");
+                date.textContent = new Date(fivedayForecast.dt * 1000).toLocaleDateString();
+
+
                 var tempForecastEl = document.createElement('p');
                 var windForecastEl = document.createElement('p');
                 var humidForecastEl = document.createElement('p');
@@ -103,82 +108,27 @@ function checkweather(city) {
                 forecast.append(fiveDayCard);  
     
     
-                fiveDayCard.append(imgForecast ,tempForecastEl, windForecastEl, humidForecastEl);}
+                fiveDayCard.append(imgForecast, date ,tempForecastEl, windForecastEl, humidForecastEl);}
         })
 
-
-        // .then(response => response.json())
-        // .then(data => {
-   
-        //     for (var i = 0; i < data.list.length; i +=8) {
-
-        //     var fivedayForecast = data.list[i]
-        //     // fiveDayCard.setAttribute('card', 'bg-info')         
-        //     // forecast.append(fiveDayCard);    
-            
-        //     var tempForecast = fivedayForecast.main.temp;
-        //     var windForecast = fivedayForecast.wind.speed;
-        //     var humidForecast = fivedayForecast.main.humidity;
-        //     var iconForecast = fivedayForecast.weather[i].icon;
-        //     var iconUrlForecast = `http://openweathermap.org/img/w/${iconForecast}.png`;
-        //     var imgForecast = document.createElement('img');
-        //     imgForecast.src = iconUrlForecast 
-        //     document.body.appendChild(imgForecast);
-        //     imgForecast.width = 50;
-        //     imgForecast.height = 50;
-
-        //     forecast.innerHTML = '';
-
-        //     var tempForecastEl = document.createElement('p');
-        //     var windForecastEl = document.createElement('p');
-        //     var humidForecastEl = document.createElement('p');
-
-        //     tempForecastEl.textContent = `temp:${tempForecastEl} C`;
-        //     windForecastEl.textContent = `wind:${windForecast} m/s`;
-        //     humidForecastEl.textContent = `humidity:${humidForecast} %`;
-
-        //     fiveDayCard.classList.add('card', 'bg-info', 'border', 'border-primary', 'p-2', 'm-2')         
-        //     forecast.append(fiveDayCard);  
-
-
-        //     cardBody.append(imgForecast ,tempForecastEl, windForecastEl, humidForecastEl);
-
-        //     }
-
-        // })
 
         .catch(error => console.error('Error:', error)); // log any errors that occur
 }
 
 
 
-function renderforecast(dailyforecast) {
-    var startDate = dayjs().add(1, "day").startOf("day").unix()
-    var endDate = dayjs().add(6, "day").endOf("day").unix()
-
-    var headingCol = document.createElement('div')
-    var heading = document.createElement('h4')
-    headingCol.setAttribute('class', 'col-12')
-    heading.textContent = "five day forecast"
-
-    headingCol.append(heading)
-    forecast.innerHTML = '';
-    forecast.append(headingCol);
-
-    for (var i = 0; i < dailyforecast.length; i++) {
-        if (dailyforecast[i].dt >= startDate && dailyforecast[i].dt <= endDate) {
-            if (dailyforecast[i].dt_txt.slice(11, 13) == "12") { //getting data
-                myForecastData(dailyforecast[i])
-            }
-        }
+function saveHistory(city) {
+    var prevSearch = JSON.parse(localStorage.getItem("searchHistory")) || [];
+    history.innerHTML = ''; // Clear the previous content
+    for (let i = 0; i < prevSearch.length; i++) {
+        var searchHistory = document.createElement("p");
+        searchHistory.textContent = prevSearch[i];
+        history.append(searchHistory);
     }
-
-
+    // document.getElementById('history').classList.remove("hidden"); // Corrected typo, but you can remove this line if it's not necessary
 }
 
-function saveHistory() {
 
-}
 
 function getHistory() {
 
