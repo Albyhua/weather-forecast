@@ -17,6 +17,8 @@ N/A
 The link provided will send users to the application where the user can start organizing their day-to-day workflow. 
 
 [Weather-Forecast](https://albyhua.github.io/weather-forecast/)
+![image](https://github.com/Albyhua/weather-forecast/assets/134244028/051e9157-73a3-40d6-9eb8-9a5c74ed779e)
+
 
 ## Credits
 
