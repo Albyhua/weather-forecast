@@ -20,7 +20,7 @@ form.addEventListener('submit', function (event) {
         forecast.innerHTML = ''; // refreshes every time a new user input is placed
         console.log(city);
     }
-
+    
     checkweather(city);
 })
 
@@ -30,13 +30,10 @@ function checkweather(city) {
     const searchOutput = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
 
     fetch(searchOutput)
-        .then(response => {
-            response.json();
-        })
+        .then(response => response.json()) // parse the response as JSON, converting to string
         .then(data => {
-            console.log(data)
-            var fivedayForecast = data.list[i]
             var weatherForecast = data.list[0];
+            console.log(weatherForecast)
             var temperature = weatherForecast.main.temp;
             var windSpeed = weatherForecast.wind.speed;
             var humidity = weatherForecast.main.humidity;
@@ -79,6 +76,7 @@ function checkweather(city) {
                 var windForecast = fivedayForecast.wind.speed;
                 var humidForecast = fivedayForecast.main.humidity;
 
+                // getting date
                 var date = document.createElement("h3");
                 date.textContent = new Date(fivedayForecast.dt * 1000).toLocaleDateString();
 
